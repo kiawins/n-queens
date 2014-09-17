@@ -79,21 +79,42 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      var queens = 0;
+      _.each(this[rowIndex], function(element, index){
+        if (element === 1){
+          queens++;
+        }
+      });
+      if (queens > 1){
+        return true;
+      }
+      return false;
     },
 
     // test if any rows on this board contain conflicts
-    hasAnyRowConflicts: function() {
+    hasAnyRowConflicts: function() { // this = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+      _.each(this, function(element, index){
+        if (element.hasRowConflictAt){
+          return true;
+        }
+      })
       return false; // fixme
     },
-
-
 
     // COLUMNS - run from top to bottom
     // --------------------------------------------------------------
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      var queens = 0;
+      _.each(this, function(element, index){
+        if (element[colIndex] === 1){
+          queens++;
+        }
+      })
+      if (queens > 1){
+        return true;
+      }
       return false; // fixme
     },
 
