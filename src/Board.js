@@ -169,7 +169,7 @@
         }
       })
 
-      var copy = this;
+      var copy = this.slice(0);
 
       while (copy.length > 0) {
         if (this.hasMajorDiagonalConflictAt.call(copy, 0)){
@@ -193,7 +193,7 @@
       var n = this.length;
 
 
-      for (var y = minorDiagonalColumnIndexAtFirstRow; y > 0; y--) {
+      for (var y = minorDiagonalColumnIndexAtFirstRow; y >= minorDiagonalColumnIndexAtFirstRow - n + 1; y--) {
         if (this[x][y] === 1) {
           queens++;
         }
@@ -209,6 +209,26 @@
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
+      var hasConflict = false;
+
+      //checked the right half of the array
+      _.each(this[0], function(element, index) {
+        if (this.hasMinorDiagonalConflictAt(index)) {
+          hasConflict = true;
+        }
+      })
+
+      var copy = this.slice(0);
+
+      // debugger;
+
+      while (copy.length > 0) {
+        if (this.hasMinorDiagonalConflictAt.call(copy, arr.length - 1)){
+          hasConflict = true;
+          return hasConflict;
+        }
+        copy.shift();
+      }
       return false; // fixme
     }
 
